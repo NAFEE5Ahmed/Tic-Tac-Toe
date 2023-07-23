@@ -87,7 +87,7 @@ const game = (() => {
         displayMessage(`It is draw`);
       } else {
         switchPlayer();
-        displayMessage(`Turn for ${currentPlayer.getMarker()}`);
+        displayMessage(`Turn for ${currentPlayer.getName()}`);
       }
     }
   };
@@ -110,11 +110,22 @@ const game = (() => {
     gameBoard.resetBoard();
     currentPlayer = player1;
     isGameOver = false;
-    displayMessage(`Turn for ${currentPlayer.getMarker()}`);
+    displayMessage(`Turn for ${currentPlayer.getName()}`);
     render();
   };
 
-  const player1 = Player("Player 1", "X");
+  const getPlayerName = (callback) => {
+    const startGame = document.querySelector("#start-game");
+
+    startGame.addEventListener("click", (e) => {
+      e.preventDefault();
+      const player1Name = document.querySelector(".player1").value;
+      const player2Name = document.querySelector(".player2").value;
+      callback(player1Name);
+    });
+  };
+
+  const player1 = Player(`Player 1`, "X");
   const player2 = Player("Player 2", "O");
   currentPlayer = player1;
 
